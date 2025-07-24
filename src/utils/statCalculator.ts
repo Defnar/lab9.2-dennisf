@@ -1,6 +1,7 @@
 //helper functions to calculate stats
+const adultAverageReadSpeed = 183;
+
 export const readingTime = (wordCount: number) => {
-  const adultAverageReadSpeed = 183;
   return Math.floor(wordCount / adultAverageReadSpeed);
 };
 
@@ -11,3 +12,12 @@ export const characterCounter = (text: string) => {
 export const wordCounter = (text: string) => {
   return text.split(" ").length;
 };
+
+export const formattedReadingTime = (wordCount: number) :string => {
+
+    const minutes = Math.floor(wordCount/adultAverageReadSpeed);
+    const seconds = Math.round((wordCount/adultAverageReadSpeed)%60);
+    const secondsString = seconds.toString().padStart(2, "0");
+
+    return `${minutes}:${secondsString}`
+}
