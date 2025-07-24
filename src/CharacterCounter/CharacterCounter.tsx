@@ -20,9 +20,13 @@ export default function CharacterCounter({
     readingTime: 0,
   });
 
+  //state for text
+  const [text, setText] = useState<string>();
+
   //sets new text to text state
-  const newText = (newText: string) => {
-    setText(newText.trim());
+  const updateText= (newText: string) => {
+    setText(newText.trim())
+    updateStats(text as string);
   };
 
   const updateStats = (text: string) => {
@@ -39,14 +43,12 @@ export default function CharacterCounter({
     setStats(updatedStats);
   };
 
-  //state for text
-  const [text, setText] = useState<string>();
 
   //state for stats
 
   return (
     <>
-      <TextInput onTextChange={newText} />
+      <TextInput onTextChange={updateText} />
       <StatsDisplay />
     </>
   );
