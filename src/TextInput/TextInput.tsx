@@ -9,7 +9,6 @@ export default function TextInput({onTextChange, placeholder = "start typing..."
     return (
         <textarea 
         placeholder={placeholder}
-        value={initialValue}
         onChange={handleTextChange}
         rows={6}
         />

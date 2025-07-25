@@ -53,7 +53,7 @@ export default function CharacterCounter({
 
   return (
     <>
-      <TextInput onTextChange={updateText} />
+      <TextInput onTextChange={updateText} initialValue={text} />
       <StatsDisplay stats={stats} showReadingTime={showReadingTime} />
     </>
   );
