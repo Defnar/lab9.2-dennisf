@@ -2,6 +2,7 @@
 const adultAverageReadSpeed = 183;
 
 export const readingTime = (wordCount: number) => {
+  console.log(wordCount / adultAverageReadSpeed)
   return Math.floor(wordCount / adultAverageReadSpeed);
 };
 
@@ -23,11 +24,8 @@ export const formattedReadingTime = (wordCount: number): string => {
   const timePercent = wordCount / adultAverageReadSpeed;
   const minutes = Math.floor(timePercent);
   const seconds = Math.round((timePercent - minutes) * 60);
-  console.log(minutes);
-  console.log(seconds);
   const secondsString = seconds.toString().padStart(2, "0");
 
-  console.log(`${minutes}:${secondsString}`);
 
   return `${minutes}:${secondsString}`;
 };
