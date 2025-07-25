@@ -1,69 +1,37 @@
-# React + TypeScript + Vite
+# Readme Instructions
+- Example usage with documentation
+- A README.md file explaining how to use the components
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Answers
+## Documentation
+- Pass CharacterCounter into the main app area with the following props, all optional:
+  ```
+  minWords: a number representing the minimum amount of words that should be typed into the text area
+  maxWords: a number representing the maximum amount of words that should be typed into the text area
+  targetReadingTime: a number representing however many minutes should be met by time to read the text (calculated using average reading speed of 183 WPM)
+  showReadingTime: boolean determining whether the reading time should be displayed or not on the stat display
+  ```
+  
+- for example, if you pass something like
+    ```
+    function App() {
+    return (
+      <>
+        <CharacterCounter
+          minWords={25}
+          maxWords={100}
+          targetReadingTime={0}
+          showReadingTime={true}
+        />
+      </>
+    )
+  }
+  ```
+the displayed program will show character count, word count, and time to read the text currently typed in.  As you type in more, you will see these values increase.  Based on these settings, as long as the word count is between 25 and 100, the number will turn green.  when it is no longer between those bounds, it will turn red.  If we put a value into targetReadingTime greater than 0, the time to read value will remain red until the app calculates time to read above the value you input here.
+    - Note:  if maxWords is less than minWords, or if maxwords is 0, the word count will be green as long as the word count is higher than the minWords prop.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## How to use the components
+- CharacterCounter takes text, and passes the setText usestate to a text area component, which updates the text through a function to feed data back into the state.
+- CharacterCounter uses helper functions to take those words and calculte time to read, and whether or not the wordCount value exists within min and maxword values.
+- minWord, maxWord, wordCount, booleans for whether to display reading time, whether within the bounds of minword/maxword, and whether the text meets the targetreadtime are passed to statdisplay
+- statdisplay displays all of these stats which update in realtime as a person types and backspaces in the textbox.
