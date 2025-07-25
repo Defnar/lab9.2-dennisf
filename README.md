@@ -31,7 +31,7 @@ the displayed program will show character count, word count, and time to read th
     - Note:  if maxWords is less than minWords, or if maxwords is 0, the word count will be green as long as the word count is higher than the minWords prop.
 
 ## How to use the components
-- CharacterCounter takes text, and passes the setText usestate to a text area component, which updates the text through a function to feed data back into the state.
+- CharacterCounter takes text, and passes the setText usestate to a text area component, which updates the text through a callback function to feed data back into the state.
 - CharacterCounter uses helper functions to take those words and calculte time to read, and whether or not the wordCount value exists within min and maxword values.
 - minWord, maxWord, wordCount, booleans for whether to display reading time, whether within the bounds of minword/maxword, and whether the text meets the targetreadtime are passed to statdisplay
 - statdisplay displays all of these stats which update in realtime as a person types and backspaces in the textbox.
