@@ -7,31 +7,33 @@ import {
   wordCounter,
 } from "../utils/statCalculator";
 import StatsDisplay from "../StatsDisplay/StatsDisplay";
+import WordCountComparator from "../utils/WordCountComparator";
 
 export default function CharacterCounter({
   minWords = 0,
   maxWords = 0,
   targetReadingTime = 0,
-  showReadingTime = false
+  showReadingTime = false,
 }: CharacterCounterProps) {
-  //sets new stats to stat state
+  //state for stats
   const [stats, setStats] = useState<TextStats>({
     characterCount: 0,
     wordCount: 0,
     readingTime: 0,
     minWords: minWords,
-    maxWords: maxWords
+    maxWords: maxWords,
   });
 
   //state for text
   const [text, setText] = useState<string>();
 
   //sets new text to text state
-  const updateText= (newText: string) => {
-    setText(newText.trim())
+  const updateText = (newText: string) => {
+    setText(newText.trim());
     updateStats(newText.trim());
   };
 
+  //sets new stats to stat state
   const updateStats = (text: string) => {
     const characterCount = characterCounter(text);
     const wordCount = wordCounter(text);
@@ -42,19 +44,31 @@ export default function CharacterCounter({
       wordCount,
       readingTime: readingTimeValue,
       minWords,
-      maxWords
+      maxWords,
     };
 
     setStats(updatedStats);
   };
 
-
-  //state for stats
-
-  return (
-    <>
-      <TextInput onTextChange={updateText} initialValue={text} />
-      <StatsDisplay stats={stats} showReadingTime={showReadingTime} />
-    </>
+  //sets withinwordcount to true or false
+  const withinWordCount = WordCountComparator(
+    minWords,
+    maxWords,
+    stats.wordCount
   );
+
+  //checks time to ensure time is past bound
+  const metReadingTarget = (stats.readingTime >= targetReadingTime);
+  
+    return (
+      <>
+        <TextInput onTextChange={updateText} initialValue={text} />
+        <StatsDisplay
+          stats={stats}
+          showReadingTime={showReadingTime}
+          withinWordCount={withinWordCount}
+          withinReadingTime={metReadingTarget}
+        />
+      </>
+    );
 }
