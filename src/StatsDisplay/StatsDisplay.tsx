@@ -4,18 +4,13 @@ import { formattedReadingTime } from "../utils/statCalculator";
 export default function StatsDisplay({
   stats,
   showReadingTime = true,
+  withinWordCount = true,
+  withinReadingTime = true,
 }: StatsDisplayProps) {
   const statDisplayStyles = {
     withinBounds: { color: "green" },
     outOfBounds: { color: "red" },
   };
-
-  let withinBounds = true;
-
-  if (stats.maxWords && stats.maxWords > 0) {
-    if (stats.wordCount < stats.minWords || stats.wordCount > stats.maxWords)
-      withinBounds = false;
-  }
 
   return (
     <>
@@ -27,7 +22,7 @@ export default function StatsDisplay({
         <p>Words</p>
         <p
           style={
-            withinBounds
+            withinWordCount
               ? statDisplayStyles.withinBounds
               : statDisplayStyles.outOfBounds
           }
@@ -43,7 +38,15 @@ export default function StatsDisplay({
       {showReadingTime && (
         <div>
           <p>Reading Time</p>
-          <p>{showReadingTime ? formattedReadingTime(stats.wordCount) : ""}</p>
+          <p
+            style={
+              withinReadingTime
+                ? statDisplayStyles.withinBounds
+                : statDisplayStyles.outOfBounds
+            }
+          >
+            {showReadingTime ? formattedReadingTime(stats.wordCount) : ""}
+          </p>
         </div>
       )}
     </>
