@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TextStats, type CharacterCounterProps } from "../types";
+import type { TextStats, CharacterCounterProps } from "../types";
 import TextInput from "../TextInput/TextInput";
 import {
   characterCounter,
@@ -9,15 +9,18 @@ import {
 import StatsDisplay from "../StatsDisplay/StatsDisplay";
 
 export default function CharacterCounter({
-  minWords,
-  maxWords,
-  targetReadingTime,
+  minWords = 0,
+  maxWords = 0,
+  targetReadingTime = 0,
+  showReadingTime = false
 }: CharacterCounterProps) {
   //sets new stats to stat state
   const [stats, setStats] = useState<TextStats>({
     characterCount: 0,
     wordCount: 0,
     readingTime: 0,
+    minWords: minWords,
+    maxWords: maxWords
   });
 
   //state for text
@@ -26,7 +29,7 @@ export default function CharacterCounter({
   //sets new text to text state
   const updateText= (newText: string) => {
     setText(newText.trim())
-    updateStats(text as string);
+    updateStats(newText.trim());
   };
 
   const updateStats = (text: string) => {
@@ -38,6 +41,8 @@ export default function CharacterCounter({
       characterCount,
       wordCount,
       readingTime: readingTimeValue,
+      minWords,
+      maxWords
     };
 
     setStats(updatedStats);
@@ -49,7 +54,7 @@ export default function CharacterCounter({
   return (
     <>
       <TextInput onTextChange={updateText} />
-      <StatsDisplay />
+      <StatsDisplay stats={stats} showReadingTime={showReadingTime} />
     </>
   );
 }

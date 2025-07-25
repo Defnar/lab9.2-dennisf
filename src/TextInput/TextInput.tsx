@@ -11,6 +11,7 @@ export default function TextInput({onTextChange, placeholder = "start typing..."
         placeholder={placeholder}
         value={initialValue}
         onChange={handleTextChange}
+        rows={6}
         />
     )
 }
