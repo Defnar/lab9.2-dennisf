@@ -58,17 +58,17 @@ export default function CharacterCounter({
   );
 
   //checks time to ensure time is past bound
-  const metReadingTarget = (stats.readingTime >= targetReadingTime);
-  
-    return (
-      <>
-        <TextInput onTextChange={updateText} initialValue={text} />
-        <StatsDisplay
-          stats={stats}
-          showReadingTime={showReadingTime}
-          withinWordCount={withinWordCount}
-          withinReadingTime={metReadingTarget}
-        />
-      </>
-    );
+  const metReadingTarget = stats.readingTime >= targetReadingTime;
+
+  return (
+    <>
+      <TextInput onTextChange={updateText} initialValue={text} />
+      <StatsDisplay
+        stats={stats}
+        showReadingTime={showReadingTime}
+        withinWordCount={withinWordCount}
+        withinReadingTime={metReadingTarget}
+      />
+    </>
+  );
 }
